@@ -1,0 +1,13 @@
+button {
+    margin: 20px;
+    width: 150px;
+    font-size: 2em;
+}
+
+button.button-on {
+    outline: solid 10px #0000FF;
+}
+
+button.button-off {
+    outline: solid 10px #808080;
+}

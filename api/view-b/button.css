@@ -1,0 +1,20 @@
+.checkbutton {
+    margin: 20px;
+    width: 150px;
+    font-size: 2em;
+}
+
+.checkbutton input {
+    width: 2em;
+    height: 2em;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.checkbutton.button-on {
+    color: #0000FF;
+}
+
+.checkbutton.button-off {
+    color: #444444;
+}
