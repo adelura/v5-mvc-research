@@ -6,7 +6,8 @@ V5.ButtonController = function( commandName ) {
 
 	// The "View Model" object, implementing the interface known by the view.
 	var viewModel = this.viewModel = new V5.Model( {
-		label: command.get( 'name' )
+		label: command.name,
+		state: command.value
 	}, {
 		click: function() {
 			command.exec();
@@ -14,8 +15,8 @@ V5.ButtonController = function( commandName ) {
 	} );
 
 	// Watch for changes in the command value and update the view.
-	command.on( 'change:value', function() {
-		viewModel.set( 'state', command.get( 'value' ) );
+	command.on( 'value', function() {
+		viewModel.set( 'state', command.value );
 	} );
 
 	// Creates the view

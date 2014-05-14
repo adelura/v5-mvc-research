@@ -1,13 +1,27 @@
-// The model that represents an editor command.
-V5.Command = V5.Model.extend( function Command() {
-	V5.Model.apply( this, arguments );
-}, {
-	exec: function() {
-		// By default, should do nothing.
+( function() {
+	'use strict';
 
-		// For testing let's just switch the command value.
-		this.set( 'value', !this.get( 'value' ) );
+	// Simple command for demonstration purposes.
+	// It's totally unrealistic, because it merges command class and command button definition.
+	V5.Command = function Command( name ) {
+		this.name = name;
+		this.value = false;
+	};
 
-		console.log( 'Executed command: ' + this.get( 'name' ) + '. Current value: ' + this.get( 'value' ) );
-	}
-} );
+	V5.Command.prototype = {
+		exec: function() {
+			// By default, should do nothing.
+
+			// For testing let's just switch the command value.
+			// Again - totally unrealistic - in real case it would be extracted
+			// and actually we have a state not value, and the state has a special control logic.
+			this.value = !this.value;
+			this.fire( 'value' );
+
+			console.log( 'Executed command: ' + this.name + '. Current value: ' + this.value );
+		}
+	};
+
+	V5.Tools.extend( V5.Command.prototype, V5.Events );
+
+} )();
