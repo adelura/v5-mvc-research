@@ -7,6 +7,14 @@ var V5 = {
 					target[ prop ] = source[ prop ];
 				}
 			}
+		},
+
+		subClass: function( parentConstructor, childConstructor, protoProps ) {
+			childConstructor.prototype = Object.create( parentConstructor.prototype );
+			if ( protoProps )
+				V5.Tools.extend( childConstructor.prototype, protoProps );
+
+			return childConstructor;
 		}
 	},
 
@@ -51,9 +59,4 @@ V5.Model.prototype = {
 // Add events support.
 V5.Tools.extend( V5.Model.prototype, V5.Events );
 
-V5.Model.extend = function( childConstructor, protoProps ) {
-	childConstructor.prototype = Object.create( this.prototype );
-	V5.Tools.extend( childConstructor.prototype, protoProps );
-
-	return childConstructor;
-};
+V5.Model.extend = V5.Tools.subClass.bind( null, V5.Model );
