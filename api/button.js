@@ -8,7 +8,7 @@
 		var command = V5.commands[ commandName ];
 
 		// The "View Model" object, implementing the interface known by the view.
-		var viewModel = this.viewModel = new V5.Model( {
+		var viewModel = this._viewModel = new V5.Model( {
 			label: command.name,
 			state: command.value
 		}, {
@@ -23,7 +23,13 @@
 		} );
 
 		// Creates the view
-		var view = this.view = new V5.Button.View( viewModel );
+		var view = this._view = new V5.Button.View( viewModel );
+	};
+	V5.Button.prototype = {
+		// Alternatively it could return or expose its "main element".
+		appendTo: function( el ) {
+			el.appendChild( this._view.el );
+		}
 	};
 
 	V5.Button.ViewPrototype = function ButtonViewPrototype( model ) {
