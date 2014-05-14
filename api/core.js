@@ -12,10 +12,10 @@ var V5 = {
 
 	// Minimum event API for model changes notification.
 	Events: {
-		on: function( eventName, callback ) {
+		on: function( eventName, callback, context ) {
 			this._events || ( this._events = {} );
 			var events = this._events[ eventName ] || ( this._events[ eventName ] = [] );
-			events.push( callback );
+			events.push( [ callback, context || this ] );
 		},
 
 		fire: function( eventName ) {
@@ -23,7 +23,7 @@ var V5 = {
 
 			if ( callbacks ) {
 				for ( var i = 0; i < callbacks.length ; i++ ) {
-					callbacks[ i ].call( this );
+					callbacks[ i ][ 0 ].call( callbacks[ i ][ 1 ] );
 				}
 			}
 		}
