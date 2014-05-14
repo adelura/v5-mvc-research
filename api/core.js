@@ -39,12 +39,12 @@ var V5 = {
 };
 
 // The base Model class.
-V5.Model = function( attributes, properties ) {
+V5.ViewModel = function( attributes, properties ) {
 	this.attributes = attributes || {};
 	properties && V5.Tools.extend( this, properties );
 };
 
-V5.Model.prototype = {
+V5.ViewModel.prototype = {
 	set: function( key, val ) {
 		this.attributes[ key ] = val;
 
@@ -57,6 +57,6 @@ V5.Model.prototype = {
 };
 
 // Add events support.
-V5.Tools.extend( V5.Model.prototype, V5.Events );
+V5.Tools.extend( V5.ViewModel.prototype, V5.Events );
 
-V5.Model.extend = V5.Tools.subClass.bind( null, V5.Model );
+V5.ViewModel.extend = V5.Tools.subClass.bind( null, V5.ViewModel );

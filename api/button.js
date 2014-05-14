@@ -8,7 +8,7 @@
 		var command = V5.commands[ commandName ];
 
 		// The "View Model" object, implementing the interface known by the view.
-		var viewModel = this._viewModel = new V5.Model( {
+		var viewModel = this._viewModel = new V5.ViewModel( {
 			label: command.name,
 			state: command.value
 		}, {
