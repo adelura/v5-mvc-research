@@ -1,23 +1,18 @@
 ( function() {
 	'use strict';
 
-	V5.ButtonView = function ButtonView( model ) {
+	V5.Button.View = function ButtonView( model ) {
 		var el = this.el = document.createElement( 'button' );
 		el.innerHTML = model.get( 'label' );
-		this.setState( model.get( 'state' ) );
 
-		el.addEventListener( 'click', function() {
-			model.click();
-		} );
-		model.on( 'change:state', function() {
-			this.setState( model.get( 'state' ) );
-		}, this );
+		V5.Button.ViewPrototype.call( this, model );
 	};
+	V5.Button.View.prototype = Object.create( V5.Button.ViewPrototype.prototype );
 
-	V5.ButtonView.prototype = {
+	V5.Tools.extend( V5.Button.View.prototype, {
 		setState: function( newState ) {
 			this.el.className = newState ? 'button-on' : 'button-off';
 		}
-	};
+	} );
 
 } )();

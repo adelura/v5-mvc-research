@@ -4,5 +4,8 @@ V5.commands = {
 	Italic: new V5.Command( 'Italic', true )
 };
 
-var boldButtonController = document.body.appendChild( ( new V5.ButtonController( 'Bold' ) ).view.el );
-var italicButtonController = document.body.appendChild( ( new V5.ButtonController( 'Italic' ) ).view.el );
+var boldButton = new V5.Button( 'Bold' );
+document.body.appendChild( boldButton.view.el );
+
+var italicButton = new V5.Button( 'Italic' );
+document.body.appendChild( italicButton.view.el );
