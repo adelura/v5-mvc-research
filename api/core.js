@@ -51,15 +51,9 @@ V5.Model.prototype = {
 // Add events support.
 V5.Tools.extend( V5.Model.prototype, V5.Events );
 
-V5.Model.extend = function( protoProps ) {
-	var parent = this;
+V5.Model.extend = function( childConstructor, protoProps ) {
+	childConstructor.prototype = Object.create( this.prototype );
+	V5.Tools.extend( childConstructor.prototype, protoProps );
 
-	var child = function() {
-		return parent.apply( this, arguments );
-	};
-
-	child.prototype = Object.create( parent.prototype );
-	V5.Tools.extend( child.prototype, protoProps );
-
-	return child;
+	return childConstructor;
 };
