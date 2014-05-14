@@ -16,7 +16,7 @@
 			// Again - totally unrealistic - in real case it would be extracted
 			// and actually we have a state not value, and the state has a special control logic.
 			this.value = !this.value;
-			this.fire( 'value' );
+			this.fire( 'value', this.value );
 
 			console.log( 'Executed command: ' + this.name + '. Current value: ' + this.value );
 		}

@@ -26,12 +26,12 @@ var V5 = {
 			events.push( [ callback, context || this ] );
 		},
 
-		fire: function( eventName ) {
+		fire: function( eventName, value ) {
 			var callbacks = this._events && this._events[ eventName ];
 
 			if ( callbacks ) {
 				for ( var i = 0; i < callbacks.length ; i++ ) {
-					callbacks[ i ][ 0 ].call( callbacks[ i ][ 1 ] );
+					callbacks[ i ][ 0 ].call( callbacks[ i ][ 1 ], value );
 				}
 			}
 		}
@@ -48,7 +48,7 @@ V5.ViewModel.prototype = {
 	set: function( key, val ) {
 		this.attributes[ key ] = val;
 
-		this.fire( 'change:' + key );
+		this.fire( 'change:' + key, val );
 	},
 
 	get: function( key ) {

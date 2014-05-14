@@ -39,9 +39,7 @@
 			model.click();
 		} );
 
-		model.on( 'change:state', function() {
-			this.setState( model.get( 'state' ) );
-		}, this );
+		model.on( 'change:state', this.setState, this );
 	};
 
 } )();
