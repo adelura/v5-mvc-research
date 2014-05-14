@@ -3,9 +3,9 @@
 
 	// Simple command for demonstration purposes.
 	// It's totally unrealistic, because it merges command class and command button definition.
-	V5.Command = function Command( name ) {
+	V5.Command = function Command( name, value ) {
 		this.name = name;
-		this.value = false;
+		this.value = !!value;
 	};
 
 	V5.Command.prototype = {
