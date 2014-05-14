@@ -58,7 +58,7 @@ V5.Model.extend = function( protoProps ) {
 		return parent.apply( this, arguments );
 	};
 
-	V5.Tools.extend( child.prototype, this.prototype );
+	child.prototype = Object.create( parent.prototype );
 	V5.Tools.extend( child.prototype, protoProps );
 
 	return child;
