@@ -18,9 +18,15 @@
 		} );
 
 		// Watch for changes in the command value and update the view.
-		command.on( 'value', function() {
-			viewModel.set( 'state', command.value );
-		} );
+		command.on( 'value', function( e ) {
+			var validationResult = this.validateStatus();
+
+			if ( validationResult )
+				viewModel.set( 'state', e.value );
+			else
+				e.preventDefault();
+
+		}, this );
 
 		// Creates the view
 		var view = this._view = new V5.Button.View( viewModel );
@@ -29,6 +35,12 @@
 		// Alternatively it could return or expose its "main element".
 		appendTo: function( el ) {
 			el.appendChild( this._view.el );
+		},
+
+		validateStatus: function( value ) {
+			// fake validation based on current minute.
+			// even minutes result as true
+			return !( new Date().getMinutes() % 2 );
 		}
 	};
 
@@ -39,7 +51,9 @@
 			model.click();
 		} );
 
-		model.on( 'change:state', this.setState, this );
+		model.on( 'change:state', function( e ) {
+			this.setState( e.value );
+		}, this );
 	};
 
 } )();

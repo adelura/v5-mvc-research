@@ -26,14 +26,24 @@ var V5 = {
 			events.push( [ callback, context || this ] );
 		},
 
-		fire: function( eventName, value ) {
-			var callbacks = this._events && this._events[ eventName ];
+		fire: function( eventName, props ) {
+			var callbacks = this._events && this._events[ eventName ],
+				event = {
+					defaultPrevented: false
+				};
+
+			V5.Tools.extend( event, props );
+			event.preventDefault = function() {
+				this.defaultPrevented = true;
+			};
 
 			if ( callbacks ) {
 				for ( var i = 0; i < callbacks.length ; i++ ) {
-					callbacks[ i ][ 0 ].call( callbacks[ i ][ 1 ], value );
+					callbacks[ i ][ 0 ].call( callbacks[ i ][ 1 ], event );
 				}
 			}
+
+			return event;
 		}
 	}
 };
@@ -48,7 +58,9 @@ V5.ViewModel.prototype = {
 	set: function( key, val ) {
 		this.attributes[ key ] = val;
 
-		this.fire( 'change:' + key, val );
+		this.fire( 'change:' + key, {
+			value: val
+		} );
 	},
 
 	get: function( key ) {
