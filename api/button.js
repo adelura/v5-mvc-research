@@ -32,14 +32,42 @@
 		}
 	};
 
-	V5.Button.ViewPrototype = function ButtonViewPrototype( model ) {
-		this.setState( model.get( 'state' ) );
+	V5.Button.ViewPrototype = function ButtonViewPrototype( model, tagName ) {
+		this.model = model;
+		this.createElement( tagName );
+		this.makeVMBindings();
+		this.initBasedOnVM();
+	};
 
-		this.el.addEventListener( 'click', function( evt ) {
-			model.click();
-		} );
+	V5.Button.ViewPrototype.prototype = {
+		/**
+		 * Add callbacks which will be called on model changes.
+		 */
+		makeVMBindings: function() {
+			for ( var i in this.modelBindings ) {
+				this.model.on( i, this.modelBindings[ i ], this );
+			}
+		},
 
-		model.on( 'change:state', this.setState, this );
+		/**
+		 * Call appropriate init methods based on keys passed in config.
+		 */
+		initBasedOnVM: function() {
+			for ( var i = 0; i < this.initVMKeys.length; i += 1 ) {
+				var key = this.initVMKeys[ i ],
+					keyUpper = key.charAt( 0 ).toUpperCase() + key.slice( 1 ); // Uppercase first char
+
+				this[ 'set' + keyUpper ]( this.model.get( key ) );
+			}
+		},
+
+		/**
+		 * @param {String=} tagName
+		 */
+		createElement: function( tagName ) {
+			tagName = tagName || 'div';
+			this.el = document.createElement( tagName );
+		}
 	};
 
 } )();
